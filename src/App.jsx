@@ -3,42 +3,12 @@ import React, { useEffect, useMemo, useState } from "react";
 const DIGITS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const RULES = [
-  {
-    id: 1,
-    label: "x + 3",
-    hint: "Legg til 3",
-    apply: (x) => x + 3,
-  },
-  {
-    id: 2,
-    label: "x - 2",
-    hint: "Trekk fra 2",
-    apply: (x) => x - 2,
-  },
-  {
-    id: 3,
-    label: "2x",
-    hint: "Gang med 2",
-    apply: (x) => x * 2,
-  },
-  {
-    id: 4,
-    label: "3x",
-    hint: "Gang med 3",
-    apply: (x) => x * 3,
-  },
-  {
-    id: 5,
-    label: "x + 5",
-    hint: "Legg til 5",
-    apply: (x) => x + 5,
-  },
-  {
-    id: 6,
-    label: "2x + 1",
-    hint: "Gang med 2 og legg til 1",
-    apply: (x) => x * 2 + 1,
-  },
+  { id: 1, label: "x + 3", hint: "Legg til 3", apply: (x) => x + 3 },
+  { id: 2, label: "x - 2", hint: "Trekk fra 2", apply: (x) => x - 2 },
+  { id: 3, label: "2x", hint: "Gang med 2", apply: (x) => x * 2 },
+  { id: 4, label: "3x", hint: "Gang med 3", apply: (x) => x * 3 },
+  { id: 5, label: "x + 5", hint: "Legg til 5", apply: (x) => x + 5 },
+  { id: 6, label: "2x + 1", hint: "Gang med 2 og legg til 1", apply: (x) => x * 2 + 1 },
 ];
 
 function getRandomRule() {
@@ -68,11 +38,9 @@ export default function App() {
 
   useEffect(() => {
     if (solved || timeLeft <= 0) return undefined;
-
     const timer = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
-
     return () => clearInterval(timer);
   }, [solved, timeLeft]);
 
@@ -92,7 +60,6 @@ export default function App() {
 
   function testNumber(value) {
     if (solved || timeLeft === 0) return;
-
     const output = rule.apply(value);
     setLatestOutput(output);
     setHistory((prev) => [...prev, { input: value, output }]);
@@ -101,7 +68,6 @@ export default function App() {
 
   function chooseAnswer(option) {
     if (solved || timeLeft === 0) return;
-
     setSelectedGuess(option);
 
     if (option === rule.label) {
@@ -238,7 +204,10 @@ export default function App() {
                   ? rule.hint
                   : "Klikk for å vise et hint hvis eleven trenger støtte."}
               </div>
-              <button className="secondary-button" onClick={() => setShowHint((prev) => !prev)}>
+              <button
+                className="secondary-button"
+                onClick={() => setShowHint((prev) => !prev)}
+              >
                 {showHint ? "Skjul hint" : "Vis hint"}
               </button>
             </div>
@@ -265,7 +234,9 @@ export default function App() {
           <div className="footer-grid">
             <div className="idea-box">
               <strong>Enkle nivåer</strong>
-              <p>Start med addisjon og subtraksjon før du åpner for multiplikasjon og sammensatte regler.</p>
+              <p>
+                Start med addisjon og subtraksjon før du åpner for multiplikasjon og sammensatte regler.
+              </p>
             </div>
             <div className="idea-box">
               <strong>Lærermodus</strong>
